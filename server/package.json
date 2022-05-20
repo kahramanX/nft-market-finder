@@ -1,0 +1,28 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "server of NFT searcher app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "nft-searcher"
+  },
+  "keywords": [
+    "see",
+    "which",
+    "marketplaces",
+    "NFT",
+    "is",
+    "listed",
+    "on"
+  ],
+  "author": "kahramanX",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "nodemon": "^2.0.16"
+  }
+}
