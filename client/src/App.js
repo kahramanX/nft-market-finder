@@ -1,9 +1,13 @@
-import "./index.css";
+//Sass
+import "./index.scss";
+
+//Components
+import GetNFTInfo from "./components/GetNFTInfo";
 
 function App() {
   return (
     <div className="App">
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      <GetNFTInfo />
     </div>
   );
 }

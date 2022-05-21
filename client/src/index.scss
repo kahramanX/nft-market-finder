@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+body {
+  font-family: "Prompt", sans-serif;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  font-weight: 500;
+  font-size: 2em;
+}
+
+.input-container {
+  .inputs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px;
+
+    input {
+      font-size: 1em;
+      width: 30em;
+      padding: 15px;
+      color: gray;
+      font-weight: 600;
+
+      &:first-child {
+        margin-right: 30px;
+      }
+    }
+  }
+
+  .search-btn-container {
+    display: flex;
+    justify-content: center;
+
+    button {
+      font-size: 1em;
+      padding: 15px;
+      color: rgb(70, 70, 70);
+      font-weight: 600;
+    }
+  }
+}
+
+.NFT-info-section {
+  display: flex;
+  justify-content: center;
+  .NFT-infos-container {
+    border: 1px solid red;
+  }
+
+  .see-NFT-on-marketplaces {
+    border: 1px solid blue;
+  }
+}
+
+footer {
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 200;
+  font-style: italic;
+}
