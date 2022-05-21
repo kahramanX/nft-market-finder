@@ -1,11 +1,19 @@
+//Redux
+import { useSelector } from "react-redux";
+
 function SelectedNFTInfos() {
+  const { contract, tokenId } = useSelector((state) => state.nftInfos);
+
   return (
     <div className="NFT-infos-container">
-      <img src="https://lh3.googleusercontent.com/qsyptaf_Tsm4KhHKjKMRuA8aDYfGGz-GXmAaVkrc2g56AoRIR_9OiSeqIOl5F6Eb_oYE-IqjASl7OvfzaAEfmxw7Upk-NOTT-TyqRA=w600" />
+      <img
+        src="https://lh3.googleusercontent.com/qsyptaf_Tsm4KhHKjKMRuA8aDYfGGz-GXmAaVkrc2g56AoRIR_9OiSeqIOl5F6Eb_oYE-IqjASl7OvfzaAEfmxw7Upk-NOTT-TyqRA=w600"
+        alt="NFT img"
+      />
 
       <ul>
-        <li>Contract: 0x130cfab3817467f532c179d4e6502f5a7e7d44c7</li>
-        <li>Token ID: 10</li>
+        <li>Contract: {contract}</li>
+        <li>Token ID: {tokenId}</li>
       </ul>
     </div>
   );
