@@ -36,15 +36,16 @@ function GetNFTInfo() {
           <select
             onChange={(e) => dispatch(setNetworkName(e.target.value))}
             className="select-network"
+            defaultValue={"default"}
           >
-            <option selected disabled>
+            <option value={"default"} selected disabled>
               select...
             </option>
-            <option>Avalanche</option>
-            <option>BNB</option>
-            <option>Ethereum</option>
-            <option>Polygon</option>
-            <option>Solana</option>
+            <option value={"Avalanche"}>Avalanche</option>
+            <option value={"BNB"}>BNB</option>
+            <option value={"Ethereum"}>Ethereum</option>
+            <option value={"Polygon"}>Polygon</option>
+            <option value={"Solana"}>Solana</option>
           </select>
         </div>
         <div className="search-btn-container">

@@ -19,6 +19,12 @@ header {
     justify-content: center;
     padding: 70px;
 
+    .select-network {
+      padding: 16px;
+      font-size: 1em;
+      font-weight: 600;
+    }
+
     @media (max-width: 950px) {
       flex-direction: column;
     }
@@ -36,12 +42,6 @@ header {
         @media (max-width: 950px) {
           margin-right: 0px;
           margin-bottom: 20px;
-        }
-      }
-
-      .select-network {
-        option {
-          padding: 10px;
         }
       }
     }
@@ -80,10 +80,22 @@ header {
 
   .NFT-infos-container {
     border: 2px solid gray;
+
+    @media (max-width: 950px) {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
   }
 
   .see-NFT-on-marketplaces {
     border: 2px solid gray;
+
+    @media (max-width: 950px) {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
   }
 }
 
