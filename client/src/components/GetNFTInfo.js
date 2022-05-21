@@ -18,7 +18,7 @@ function GetNFTInfo() {
           />
         </div>
         <div className="search-btn-container">
-          <button>Search on marketplaces</button>
+          <button>Search on marketplaces 👀</button>
         </div>
       </div>
       <section className="NFT-info-section">

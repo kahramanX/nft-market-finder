@@ -17,7 +17,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 100px;
+    padding: 70px;
 
     input {
       font-size: 1em;
@@ -37,10 +37,19 @@ header {
     justify-content: center;
 
     button {
+      background-color: white;
       font-size: 1em;
       padding: 15px;
       color: rgb(70, 70, 70);
       font-weight: 600;
+      transition: background-color 300ms;
+
+      &:hover {
+        cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>👀</text></svg>")
+            16 0,
+          auto;
+        background-color: rgb(236, 236, 236);
+      }
     }
   }
 }
@@ -48,20 +57,20 @@ header {
 .NFT-info-section {
   display: flex;
   justify-content: center;
+  margin-top: 20px;
+
   .NFT-infos-container {
-    border: 1px solid red;
+    border: 2px solid gray;
   }
 
   .see-NFT-on-marketplaces {
-    border: 1px solid blue;
+    border: 2px solid gray;
   }
 }
 
 footer {
-  position: absolute;
-  bottom: 0px;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  padding: 20px;
+  text-align: center;
   font-weight: 200;
   font-style: italic;
 }
