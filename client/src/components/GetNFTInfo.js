@@ -3,7 +3,7 @@ import SelectedNFTInfos from "./SelectedNFTInfos";
 import SeeOnMarketPlaces from "./SeeOnMarketPlaces";
 
 //Redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   setContract,
   setTokenId,
@@ -12,7 +12,9 @@ import {
 
 function GetNFTInfo() {
   const dispatch = useDispatch();
-
+  const { contract, tokenId, networkName } = useSelector(
+    (state) => state.nftInfos
+  );
   function handleButton() {
     console.log("tıklandı");
   }
@@ -20,39 +22,47 @@ function GetNFTInfo() {
   return (
     <>
       <div className="input-container">
-        <div className="inputs">
-          <input
-            onChange={(e) => dispatch(setContract(e.target.value))}
-            className="get-contract"
-            type="text"
-            placeholder="Contract here"
-          />
-          <input
-            onChange={(e) => dispatch(setTokenId(e.target.value))}
-            className="get-token-id"
-            type="text"
-            placeholder="Token ID here"
-          />
-          <select
-            onChange={(e) => dispatch(setNetworkName(e.target.value))}
-            className="select-network"
-            defaultValue={"default"}
-          >
-            <option value={"default"} selected disabled>
-              select...
-            </option>
-            <option value={"Avalanche"}>Avalanche</option>
-            <option value={"BNB"}>BNB</option>
-            <option value={"Ethereum"}>Ethereum</option>
-            <option value={"Polygon"}>Polygon</option>
-            <option value={"Solana"}>Solana</option>
-          </select>
-        </div>
-        <div className="search-btn-container">
-          <button onClick={(e) => handleButton(e)}>
-            Search on marketplaces 👀
-          </button>
-        </div>
+        <form
+          action={`http://localhost:3001/token/${contract}/${tokenId}`}
+          method="POST"
+        >
+          <div className="inputs">
+            <input
+              name="contract"
+              onChange={(e) => dispatch(setContract(e.target.value))}
+              className="get-contract"
+              type="text"
+              placeholder="Contract here"
+            />
+            <input
+              name="tokenID"
+              onChange={(e) => dispatch(setTokenId(e.target.value))}
+              className="get-token-id"
+              type="text"
+              placeholder="Token ID here"
+            />
+            <select
+              name="chain"
+              onChange={(e) => dispatch(setNetworkName(e.target.value))}
+              className="select-network"
+              defaultValue={"default"}
+            >
+              <option value={"default"} disabled>
+                select...
+              </option>
+              <option value={"Avalanche"}>Avalanche</option>
+              <option value={"BNB"}>BNB</option>
+              <option value={"Ethereum"}>Ethereum</option>
+              <option value={"Polygon"}>Polygon</option>
+              <option value={"Solana"}>Solana</option>
+            </select>
+          </div>
+          <div className="search-btn-container">
+            <button type="submit" onSubmit={(e) => handleButton(e)}>
+              Search on marketplaces 👀
+            </button>
+          </div>
+        </form>
       </div>
       <section className="NFT-info-section">
         <SelectedNFTInfos />
