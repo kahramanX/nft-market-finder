@@ -4,7 +4,11 @@ import SeeOnMarketPlaces from "./SeeOnMarketPlaces";
 
 //Redux
 import { useDispatch } from "react-redux";
-import { setContract, setTokenId } from "../features/nftInfoSlice";
+import {
+  setContract,
+  setTokenId,
+  setNetworkName,
+} from "../features/nftInfoSlice";
 
 function GetNFTInfo() {
   const dispatch = useDispatch();
@@ -29,6 +33,19 @@ function GetNFTInfo() {
             type="text"
             placeholder="Token ID here"
           />
+          <select
+            onChange={(e) => dispatch(setNetworkName(e.target.value))}
+            className="select-network"
+          >
+            <option selected disabled>
+              select...
+            </option>
+            <option>Avalanche</option>
+            <option>BNB</option>
+            <option>Ethereum</option>
+            <option>Polygon</option>
+            <option>Solana</option>
+          </select>
         </div>
         <div className="search-btn-container">
           <button onClick={(e) => handleButton(e)}>

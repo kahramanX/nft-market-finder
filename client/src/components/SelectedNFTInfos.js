@@ -2,7 +2,9 @@
 import { useSelector } from "react-redux";
 
 function SelectedNFTInfos() {
-  const { contract, tokenId } = useSelector((state) => state.nftInfos);
+  const { contract, tokenId, networkName } = useSelector(
+    (state) => state.nftInfos
+  );
 
   return (
     <div className="NFT-infos-container">
@@ -14,6 +16,7 @@ function SelectedNFTInfos() {
       <ul>
         <li>Contract: {contract}</li>
         <li>Token ID: {tokenId}</li>
+        <li>Network: {networkName}</li>
       </ul>
     </div>
   );
