@@ -9,6 +9,10 @@ import { setContract, setTokenId } from "../features/nftInfoSlice";
 function GetNFTInfo() {
   const dispatch = useDispatch();
 
+  function handleButton() {
+    console.log("tıklandı");
+  }
+
   return (
     <>
       <div className="input-container">
@@ -27,7 +31,9 @@ function GetNFTInfo() {
           />
         </div>
         <div className="search-btn-container">
-          <button>Search on marketplaces 👀</button>
+          <button onClick={(e) => handleButton(e)}>
+            Search on marketplaces 👀
+          </button>
         </div>
       </div>
       <section className="NFT-info-section">

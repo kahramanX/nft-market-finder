@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 export const nftInfoSlice = createSlice({
   name: "NFTInputs",
   initialState: {
-    contract: "1",
-    tokenId: "1",
+    contract: "",
+    tokenId: "",
   },
   reducers: {
     setContract: (state, action) => {
