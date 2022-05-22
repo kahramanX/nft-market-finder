@@ -12,9 +12,7 @@ import {
 
 function GetNFTInfo() {
   const dispatch = useDispatch();
-  const { contract, tokenId, networkName } = useSelector(
-    (state) => state.nftInfos
-  );
+  const { contract, tokenId } = useSelector((state) => state.nftInfos);
   function handleButton() {
     console.log("tıklandı");
   }

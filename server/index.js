@@ -5,21 +5,52 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 
-app.get("/api", (req, res) => {
-  (async () => {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    await page.goto(
-      "https://looksrare.org/collections/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d/569"
-    );
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
-    await page.screenshot({ path: "example.png" });
+app.get("/token/:contract/:tokenID", (req, res) => {
+  var TOKEN = [];
 
-    console.log(page);
+  const marketplaces = async () => {
+    try {
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
+      await page.goto(
+        `https://looksrare.org/collections/${req.params.contract}/${req.params.tokenID}#offers`
+      );
 
-    await browser.close();
-  })();
-  res.json({ message: "Hello from server!" });
+      var LRname = await page.$eval(
+        "#__next > div.css-9nfnvx > div > div > div > div > div.css-m9jvpx > div.css-81whtp > div.css-1stlkl > h1",
+        (el) => el.textContent
+      );
+
+      var LRprice = await page.$eval(
+        "#__next > div.css-9nfnvx > div > div > div > div > div.css-m9jvpx > div.css-81whtp > div.css-ppybwb > div.css-1nrd5m0 > div.css-1fl5oqd > h2",
+        (el) => el.textContent
+      );
+
+      console.log({ LRprice, LRname });
+
+      await browser.close();
+      res.json({ LRprice, LRname });
+    } catch (error) {
+      //console.log(error);
+      console.log({ LRprice, LRname });
+      res.json({ LRprice: LRprice ? LRprice : "Unlisted", LRname: LRname });
+    }
+  };
+
+  marketplaces();
+});
+
+app.post("/token/:contract/:tokenID", (req, res) => {
+  console.log("=====post=====");
+  console.log(req.body);
+  console.log(req.url);
+
+  res.redirect(
+    `http://localhost:3000/token/${req.body.contract}/${req.body.tokenID}`
+  );
 });
 
 app.listen(PORT, () => {
