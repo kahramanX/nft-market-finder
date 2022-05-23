@@ -48,11 +48,11 @@ function GetNFTInfo() {
               <option value={"default"} disabled>
                 select...
               </option>
-              <option value={"Avalanche"}>Avalanche</option>
-              <option value={"BNB"}>BNB</option>
-              <option value={"Ethereum"}>Ethereum</option>
-              <option value={"Polygon"}>Polygon</option>
-              <option value={"Solana"}>Solana</option>
+              <option value={"avalanche"}>Avalanche</option>
+              <option value={"bsc"}>BNB</option>
+              <option value={"eth"}>Ethereum</option>
+              <option value={"polygon"}>Polygon</option>
+              <option value={"sol"}>Solana</option>
             </select>
           </div>
           <div className="search-btn-container">
