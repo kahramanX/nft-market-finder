@@ -23,6 +23,13 @@ app.get("/token/:contract/:tokenID", (req, res) => {
         (el) => el.textContent
       );
 
+      var url = await page.url();
+
+      var imgUrl = await page.$eval(
+        "#__next > div.css-9nfnvx > div > div > div > div > div.css-gr2nf3 > div > div.css-wrvyyq > div > div.css-dr5tha > div.chakra-aspect-ratio.css-1d7b5tk > div > div > span > img",
+        (el) => el.src
+      );
+
       var price = await page.$eval(
         "#__next > div.css-9nfnvx > div > div > div > div > div.css-m9jvpx > div.css-81whtp > div.css-ppybwb > div.css-1nrd5m0 > div.css-1fl5oqd > h2",
         (el) => Number(el.textContent)
@@ -30,16 +37,16 @@ app.get("/token/:contract/:tokenID", (req, res) => {
 
       TOKEN.push({
         marketplace: "LooksRare",
+        url,
+        imgUrl,
         name,
         price,
         chain: "eth",
-        push: "push metodlu",
       });
 
       await browser.close();
 
       console.log(TOKEN);
-      res.json(TOKEN);
     } catch (error) {
       console.log("===ERROR===");
       //console.log(error);
@@ -47,12 +54,12 @@ app.get("/token/:contract/:tokenID", (req, res) => {
       TOKEN.push({
         marketplace: "LooksRare",
         name,
+        url,
+        imgUrl,
         price: price == undefined ? "Unlisted" : price,
         chain: "eth",
-        push: "push metodlu",
       });
       console.log(TOKEN);
-      // res.json(TOKEN);
     }
   };
 
@@ -64,24 +71,30 @@ app.get("/token/:contract/:tokenID", (req, res) => {
         `https://nftrade.com/assets/eth/${req.params.contract}/${req.params.tokenID}`
       );
 
-      var price = await page.$eval(
-        "#__next > div > main > div > div.layout_container__2Iyqc.assets_assetTokenBody__Q-deF > div.assets_assetTokenBodySectionHead__3CM9G > div.assets_assetTokenBodySectionHeadRow__GN36h > div.assets_assetTokenBodyDescription__2FnOC > div.assets_assetTokenBodyPrice__3bgsY > div > b",
-        (el) => el.textContent
-      );
+      var url = await page.url();
 
       var name = await page.$eval(
         "#__next > div > main > div > div.layout_container__2Iyqc.assets_assetTokenBody__Q-deF > div.assets_assetTokenBodySectionHead__3CM9G > div.assets_assetTokenBodySectionHeadRow__GN36h > div.assets_assetTokenBodyDescription__2FnOC > div.assets_assetTokenBodyName__DYN8E",
         (el) => el.textContent
       );
 
-      console.log(name);
+      var imgUrl = await page.$eval(
+        "#__next > div > main > div > div.layout_container__2Iyqc.assets_assetTokenBody__Q-deF > div.assets_assetTokenBodySectionHead__3CM9G > div.assets_assetTokenBodySectionHeadRow__GN36h > div:nth-child(1) > div > div.layout_clickable__1NzYc.assets_assetTokenBodyImageClickable__yhyNp.layout_clickableHover__2L9lf > img",
+        (el) => el.src
+      );
+
+      var price = await page.$eval(
+        "#__next > div > main > div > div.layout_container__2Iyqc.assets_assetTokenBody__Q-deF > div.assets_assetTokenBodySectionHead__3CM9G > div.assets_assetTokenBodySectionHeadRow__GN36h > div.assets_assetTokenBodyDescription__2FnOC > div.assets_assetTokenBodyPrice__3bgsY > div > b",
+        (el) => el.textContent
+      );
 
       TOKEN.push({
         marketplace: "NFTrade",
         name,
+        url,
+        imgUrl,
         price,
         chain: "eth",
-        push: "push metodlu",
       });
 
       await browser.close();
@@ -95,22 +108,23 @@ app.get("/token/:contract/:tokenID", (req, res) => {
       TOKEN.push({
         marketplace: "NFTrade",
         name,
+        url,
+        imgUrl,
         price: price == undefined ? "Unlisted" : price,
         chain: "eth",
-        push: "push metodlu",
       });
       console.log(TOKEN);
-      // res.json(TOKEN);s
+      res.json(TOKEN);
     }
   };
 
   looksRare();
   NFTrade();
-  //console.log(TOKEN);
+  console.log(TOKEN);
   console.log(TOKEN.length);
-  if (TOKEN.length == 2) {
+  /* if (TOKEN.length == 2) {
     res.json(TOKEN);
-  }
+  } */
 
   /*
   res.json({
