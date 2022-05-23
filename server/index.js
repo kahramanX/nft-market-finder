@@ -1,18 +1,12 @@
 const express = require("express");
 const puppeteer = require("puppeteer");
+const cors = require("cors");
 
 const PORT = process.env.PORT || 3001;
 
 const app = express();
 
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3001"); // update to match the domain you will make the request from
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+app.use(cors());
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -154,6 +148,6 @@ app.post("/token/:contract/:tokenID", (req, res) => {
   );
 });
 
-app.listen(PORT, () => {
+app.listen(process.env.PORT || PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
