@@ -10,9 +10,6 @@ app.use(express.json());
 var TOKEN = [];
 
 app.get("/token/:contract/:tokenID", (req, res) => {
-  var LRname = "first";
-  var LRprice = "first";
-
   const looksRare = async () => {
     try {
       const browser = await puppeteer.launch();
@@ -21,34 +18,105 @@ app.get("/token/:contract/:tokenID", (req, res) => {
         `https://looksrare.org/collections/${req.params.contract}/${req.params.tokenID}`
       );
 
-      let LRprice = await page.$eval(
-        "#__next > div.css-9nfnvx > div > div > div > div > div.css-m9jvpx > div.css-81whtp > div.css-ppybwb > div.css-1nrd5m0 > div.css-1fl5oqd > h2",
-        (el) => Number(el.textContent)
-      );
-
-      let LRname = await page.$eval(
+      var name = await page.$eval(
         "#__next > div.css-9nfnvx > div > div > div > div > div.css-m9jvpx > div.css-81whtp > div.css-1stlkl > h1",
         (el) => el.textContent
       );
 
-      TOKEN.push({ LRprice, LRname, push: "push metodlu" });
+      var price = await page.$eval(
+        "#__next > div.css-9nfnvx > div > div > div > div > div.css-m9jvpx > div.css-81whtp > div.css-ppybwb > div.css-1nrd5m0 > div.css-1fl5oqd > h2",
+        (el) => Number(el.textContent)
+      );
+
+      TOKEN.push({
+        marketplace: "LooksRare",
+        name,
+        price,
+        chain: "eth",
+        push: "push metodlu",
+      });
+
       await browser.close();
 
+      console.log(TOKEN);
       res.json(TOKEN);
     } catch (error) {
       console.log("===ERROR===");
       //console.log(error);
-      console.log({
-        LRprice: LRprice == "" ? "Unlisted" : LRprice,
-        LRname: LRname,
+
+      TOKEN.push({
+        marketplace: "LooksRare",
+        name,
+        price: price == undefined ? "Unlisted" : price,
+        chain: "eth",
+        push: "push metodlu",
       });
-      TOKEN.push({ LRprice, LRname, push: "push metodlu" });
+      console.log(TOKEN);
+      // res.json(TOKEN);
+    }
+  };
+
+  const NFTrade = async () => {
+    try {
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
+      await page.goto(
+        `https://nftrade.com/assets/eth/${req.params.contract}/${req.params.tokenID}`
+      );
+
+      setTimeout(() => {
+        console.log("çalışması lazım");
+      }, 3000);
+      await page.waitForTimeout(3000);
+      await page.screenshot({ path: "AAAAAAAAAAAAAAAAA.png" });
+
+      var price = await page.$eval(
+        "#__next > div > main > div > div.layout_container__2Iyqc.assets_assetTokenBody__Q-deF > div.assets_assetTokenBodySectionHead__3CM9G > div.assets_assetTokenBodySectionHeadRow__GN36h > div.assets_assetTokenBodyDescription__2FnOC > div.assets_assetTokenBodyPrice__3bgsY > div > b",
+        (el) => el.textContent
+      );
+
+      var name = await page.$eval(
+        "#__next > div > main > div > div.layout_container__2Iyqc.assets_assetTokenBody__Q-deF > div.assets_assetTokenBodySectionHead__3CM9G > div.assets_assetTokenBodySectionHeadRow__GN36h > div.assets_assetTokenBodyDescription__2FnOC > div.assets_assetTokenBodyName__DYN8E",
+        (el) => el.textContent
+      );
+
+      console.log(name);
+
+      TOKEN.push({
+        marketplace: "NFTrade",
+        name,
+        price,
+        chain: "eth",
+        push: "push metodlu",
+      });
+
+      await browser.close();
+
+      console.log(TOKEN);
       res.json(TOKEN);
+    } catch (error) {
+      //console.log(error);
+      console.log("===ERROR===");
+
+      TOKEN.push({
+        marketplace: "NFTrade",
+        name,
+        price: price == undefined ? "Unlisted" : price,
+        chain: "eth",
+        push: "push metodlu",
+      });
+      console.log(TOKEN);
+      // res.json(TOKEN);s
     }
   };
 
   looksRare();
-  console.log(TOKEN);
+  NFTrade();
+  //console.log(TOKEN);
+  console.log(TOKEN.length);
+  if (TOKEN.length == 2) {
+    res.json(TOKEN);
+  }
 
   /*
   res.json({
