@@ -4,15 +4,11 @@ import SeeOnMarketPlaces from "./SeeOnMarketPlaces";
 
 //Redux
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setContract,
-  setTokenId,
-  setNetworkName,
-} from "../features/nftInfoSlice";
+import { setContract, setTokenId, setChain } from "../features/nftInfoSlice";
 
 function GetNFTInfo() {
   const dispatch = useDispatch();
-  const { contract, tokenId } = useSelector((state) => state.nftInfos);
+  const { contract, tokenId, chain } = useSelector((state) => state.nftInfos);
   function handleButton() {
     console.log("tıklandı");
   }
@@ -21,7 +17,7 @@ function GetNFTInfo() {
     <>
       <div className="input-container">
         <form
-          action={`http://localhost:3001/token/${contract}/${tokenId}`}
+          action={`http://localhost:3001/token/${chain}/${contract}/${tokenId}`}
           method="POST"
         >
           <div className="inputs">
@@ -41,7 +37,7 @@ function GetNFTInfo() {
             />
             <select
               name="chain"
-              onChange={(e) => dispatch(setNetworkName(e.target.value))}
+              onChange={(e) => dispatch(setChain(e.target.value))}
               className="select-network"
               defaultValue={"default"}
             >

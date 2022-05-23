@@ -11,9 +11,9 @@ app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.get("/token/:contract/:tokenID", (req, res) => {
+app.get("/token/:chain/:contract/:tokenID", (req, res) => {
   var TOKEN = [];
-
+  console.log("CHAIN = " + req.params.chain);
   const looksRare = async () => {
     try {
       const browser = await puppeteer.launch();
@@ -138,13 +138,13 @@ app.get("/token/:contract/:tokenID", (req, res) => {
   }); */
 });
 
-app.post("/token/:contract/:tokenID", (req, res) => {
+app.post("/token/:chain/:contract/:tokenID", (req, res) => {
   console.log("=====post=====");
   console.log(req.body);
   console.log(req.url);
 
   res.redirect(
-    `http://localhost:3000/token/${req.body.contract}/${req.body.tokenID}`
+    `http://localhost:3000/token/${req.body.chain}/${req.body.contract}/${req.body.tokenID}`
   );
 });
 

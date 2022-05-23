@@ -5,7 +5,7 @@ export const nftInfoSlice = createSlice({
   initialState: {
     contract: "",
     tokenId: "",
-    networkName: "",
+    chain: "",
   },
   reducers: {
     setContract: (state, action) => {
@@ -14,12 +14,12 @@ export const nftInfoSlice = createSlice({
     setTokenId: (state, action) => {
       state.tokenId = action.payload;
     },
-    setNetworkName: (state, action) => {
-      state.networkName = action.payload;
+    setChain: (state, action) => {
+      state.chain = action.payload;
     },
   },
 });
 
-export const { setContract, setTokenId, setNetworkName } = nftInfoSlice.actions;
+export const { setContract, setTokenId, setChain } = nftInfoSlice.actions;
 
 export default nftInfoSlice.reducer;
