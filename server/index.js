@@ -64,12 +64,6 @@ app.get("/token/:contract/:tokenID", (req, res) => {
         `https://nftrade.com/assets/eth/${req.params.contract}/${req.params.tokenID}`
       );
 
-      setTimeout(() => {
-        console.log("çalışması lazım");
-      }, 3000);
-      await page.waitForTimeout(3000);
-      await page.screenshot({ path: "AAAAAAAAAAAAAAAAA.png" });
-
       var price = await page.$eval(
         "#__next > div > main > div > div.layout_container__2Iyqc.assets_assetTokenBody__Q-deF > div.assets_assetTokenBodySectionHead__3CM9G > div.assets_assetTokenBodySectionHeadRow__GN36h > div.assets_assetTokenBodyDescription__2FnOC > div.assets_assetTokenBodyPrice__3bgsY > div > b",
         (el) => el.textContent
