@@ -105,7 +105,6 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
       await browser.close();
 
       console.log(TOKEN);
-      res.json(TOKEN);
     } catch (error) {
       //console.log(error);
       console.log("===ERROR===");
@@ -119,13 +118,74 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
         chain: req.params.chain,
       });
       console.log(TOKEN);
+    }
+  };
+
+  const rarible = async () => {
+    try {
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
+      await page.goto(
+        `https://rarible.com/token/${req.params.contract}:${req.params.tokenID}?tab=details`,
+        { waitUntil: "networkidle0" }
+      );
+
+      await page.screenshot({ path: "ananinami.png" });
+
+      var url, imgUrl, price, name;
+
+      var url = await page.url();
+
+      var name = await page.$eval(
+        "#root .sc-bdvvtL.sc-hKwDye.sc-eCImPb.sc-kOJRsK.cUywCO.lpnvpQ",
+        (el) => el.textContent
+      );
+
+      var price = await page.$eval(
+        "#root .sc-bdvvtL.sc-hKwDye.sc-eCImPb.klyGzw",
+        (el) => el.dataset.price
+      );
+
+      var imgUrl = await page.$eval(
+        "#root .sc-bdvvtL.sc-ikJyIC.sc-jJoQJp.cJszuA.gXrHpT.sc-kmQMED.bwToMy",
+        (el) => el.src
+      );
+
+      TOKEN.push({
+        marketplace: "Rarible",
+        url,
+        imgUrl,
+        name,
+        price: price == undefined ? "Unlisted" : price,
+        chain: req.params.chain,
+      });
+
+      await browser.close();
+
+      console.log(TOKEN);
+      res.json(TOKEN);
+    } catch (error) {
+      console.log("===ERROR===");
+      //console.log(error);
+
+      TOKEN.push({
+        marketplace: "Rarible",
+        name,
+        url,
+        imgUrl,
+        price: price == undefined ? "Unlisted" : price,
+        chain: req.params.chain,
+      });
+      console.log(TOKEN);
       res.json(TOKEN);
     }
   };
 
+  // Pulling NFT information
   looksRare();
   NFTrade();
-  console.log(TOKEN);
+  rarible();
+
   console.log(TOKEN.length);
   /* if (TOKEN.length == 2) {
     res.json(TOKEN);
