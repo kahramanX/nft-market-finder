@@ -1,0 +1,107 @@
+@import url("https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+body {
+  font-family: "Prompt", sans-serif;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  font-weight: 500;
+  font-size: 2em;
+}
+
+.input-container {
+  .inputs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 70px;
+
+    .select-network {
+      padding: 16px;
+      font-size: 1em;
+      font-weight: 600;
+    }
+
+    @media (max-width: 950px) {
+      flex-direction: column;
+    }
+
+    input {
+      font-size: 1em;
+      width: 30em;
+      padding: 15px;
+      color: gray;
+      font-weight: 600;
+
+      &:first-child {
+        margin-right: 30px;
+
+        @media (max-width: 950px) {
+          margin-right: 0px;
+          margin-bottom: 20px;
+        }
+      }
+    }
+  }
+
+  .search-btn-container {
+    display: flex;
+    justify-content: center;
+
+    button {
+      background-color: white;
+      font-size: 1em;
+      padding: 15px;
+      color: rgb(70, 70, 70);
+      font-weight: 600;
+      transition: background-color 300ms;
+
+      &:hover {
+        cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>👀</text></svg>")
+            16 0,
+          auto;
+        background-color: rgb(236, 236, 236);
+      }
+    }
+  }
+}
+
+.NFT-info-section {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+
+  @media (max-width: 950px) {
+    flex-direction: column;
+  }
+
+  .NFT-infos-container {
+    border: 2px solid gray;
+
+    @media (max-width: 950px) {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+  }
+
+  .see-NFT-on-marketplaces {
+    border: 2px solid gray;
+
+    @media (max-width: 950px) {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+  }
+}
+
+footer {
+  padding: 20px;
+  text-align: center;
+  font-weight: 200;
+  font-style: italic;
+}
