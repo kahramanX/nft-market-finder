@@ -14,6 +14,7 @@ app.use(express.json());
 app.get("/token/:chain/:contract/:tokenID", (req, res) => {
   var TOKEN = [];
   console.log("CHAIN = " + req.params.chain);
+
   const looksRare = async () => {
     try {
       const browser = await puppeteer.launch();
@@ -45,7 +46,7 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
         imgUrl,
         name,
         price,
-        chain: "eth",
+        chain: req.params.chain,
       });
 
       await browser.close();
@@ -61,7 +62,7 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
         url,
         imgUrl,
         price: price == undefined ? "Unlisted" : price,
-        chain: "eth",
+        chain: req.params.chain,
       });
       console.log(TOKEN);
     }
@@ -72,7 +73,7 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
       const browser = await puppeteer.launch();
       const page = await browser.newPage();
       await page.goto(
-        `https://nftrade.com/assets/eth/${req.params.contract}/${req.params.tokenID}`
+        `https://nftrade.com/assets/${req.params.chain}/${req.params.contract}/${req.params.tokenID}`
       );
 
       var url = await page.url();
@@ -98,7 +99,7 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
         url,
         imgUrl,
         price,
-        chain: "eth",
+        chain: req.params.chain,
       });
 
       await browser.close();
@@ -115,7 +116,7 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
         url,
         imgUrl,
         price: price == undefined ? "Unlisted" : price,
-        chain: "eth",
+        chain: req.params.chain,
       });
       console.log(TOKEN);
       res.json(TOKEN);
