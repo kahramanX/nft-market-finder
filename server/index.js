@@ -7,40 +7,55 @@ const app = express();
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+var TOKEN = [];
 
 app.get("/token/:contract/:tokenID", (req, res) => {
-  var TOKEN = [];
+  var LRname = "first";
+  var LRprice = "first";
 
-  const marketplaces = async () => {
+  const looksRare = async () => {
     try {
       const browser = await puppeteer.launch();
       const page = await browser.newPage();
       await page.goto(
-        `https://looksrare.org/collections/${req.params.contract}/${req.params.tokenID}#offers`
+        `https://looksrare.org/collections/${req.params.contract}/${req.params.tokenID}`
       );
 
-      var LRname = await page.$eval(
+      let LRprice = await page.$eval(
+        "#__next > div.css-9nfnvx > div > div > div > div > div.css-m9jvpx > div.css-81whtp > div.css-ppybwb > div.css-1nrd5m0 > div.css-1fl5oqd > h2",
+        (el) => Number(el.textContent)
+      );
+
+      let LRname = await page.$eval(
         "#__next > div.css-9nfnvx > div > div > div > div > div.css-m9jvpx > div.css-81whtp > div.css-1stlkl > h1",
         (el) => el.textContent
       );
 
-      var LRprice = await page.$eval(
-        "#__next > div.css-9nfnvx > div > div > div > div > div.css-m9jvpx > div.css-81whtp > div.css-ppybwb > div.css-1nrd5m0 > div.css-1fl5oqd > h2",
-        (el) => el.textContent
-      );
-
-      console.log({ LRprice, LRname });
-
+      TOKEN.push({ LRprice, LRname, push: "push metodlu" });
       await browser.close();
-      res.json({ LRprice, LRname });
+
+      res.json(TOKEN);
     } catch (error) {
+      console.log("===ERROR===");
       //console.log(error);
-      console.log({ LRprice, LRname });
-      res.json({ LRprice: LRprice ? LRprice : "Unlisted", LRname: LRname });
+      console.log({
+        LRprice: LRprice == "" ? "Unlisted" : LRprice,
+        LRname: LRname,
+      });
+      TOKEN.push({ LRprice, LRname, push: "push metodlu" });
+      res.json(TOKEN);
     }
   };
 
-  marketplaces();
+  looksRare();
+  console.log(TOKEN);
+
+  /*
+  res.json({
+    LRprice: LRprice ? LRprice : "Unlisted",
+    LRname: LRname ? LRname : "Unlisted",
+    zoooort: "test",
+  }); */
 });
 
 app.post("/token/:contract/:tokenID", (req, res) => {
