@@ -24,6 +24,8 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
         { waitUntil: "networkidle2" }
       );
 
+      await page.waitForTimeout(4000);
+
       var name = await page.$eval(
         "#__next > div.css-9nfnvx > div > div > div > div > div.css-m9jvpx > div.css-81whtp > div.css-1stlkl > h1",
         (el) => el.textContent
@@ -71,9 +73,10 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
       const browser = await puppeteer.launch();
       const page = await browser.newPage();
       await page.goto(
-        `https://nftrade.com/assets/${req.params.chain}/${req.params.contract}/${req.params.tokenID}`,
-        { waitUntil: "networkidle2" }
+        `https://nftrade.com/assets/${req.params.chain}/${req.params.contract}/${req.params.tokenID}`
       );
+
+      await page.waitForTimeout(4000);
 
       var url = await page.url();
 
@@ -122,10 +125,10 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
       const browser = await puppeteer.launch();
       const page = await browser.newPage();
       await page.goto(
-        `https://rarible.com/token/${req.params.contract}:${req.params.tokenID}?tab=details`,
-        { waitUntil: "domcontentloaded" }
+        `https://rarible.com/token/${req.params.contract}:${req.params.tokenID}?tab=details`
       );
-      await page.screenshot({ path: "ananza.png", fullPage: true });
+
+      await page.waitForTimeout(4000);
 
       var url = await page.url();
 
@@ -177,6 +180,8 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
         `https://niftygateway.com/marketplace/item/${req.params.contract}/${req.params.tokenID}`
       );
 
+      await page.waitForTimeout(4000);
+
       await page.evaluate(() => {
         localStorage.setItem(
           "preferences",
@@ -201,9 +206,6 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
         (el) => el.textContent
       );
 
-      console.log("Fotoğraf linki = ");
-      console.log(imgUrl);
-
       // undefined == page-not-found && Unlisted
       TOKEN.push({
         marketplace: "NiftyGateWay",
@@ -217,12 +219,12 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
       await browser.close();
 
       console.log(TOKEN);
+      console.log(TOKEN.length);
+
       res.json(TOKEN);
     } catch (error) {
       console.log("===ERROR===");
       //console.log(error);
-      console.log("Fotoğraf linki = ");
-      console.log(imgUrl);
 
       // undefined == page-not-found && Unlisted
       TOKEN.push({
@@ -235,6 +237,8 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
       });
 
       console.log(TOKEN);
+      console.log(TOKEN.length);
+
       res.json(TOKEN);
     }
   };
@@ -245,19 +249,9 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
   rarible();
   niftyGateway();
 
-  console.log(TOKEN.length);
-  console.log(TOKEN);
-
   /* if (TOKEN.length == 2) {
     res.json(TOKEN);
   } */
-
-  /*
-  res.json({
-    LRprice: LRprice ? LRprice : "Unlisted",
-    LRname: LRname ? LRname : "Unlisted",
-    zoooort: "test",
-  }); */
 });
 
 app.post("/token/:chain/:contract/:tokenID", (req, res) => {
