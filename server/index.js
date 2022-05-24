@@ -20,7 +20,8 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
       const browser = await puppeteer.launch();
       const page = await browser.newPage();
       await page.goto(
-        `https://looksrare.org/collections/${req.params.contract}/${req.params.tokenID}`
+        `https://looksrare.org/collections/${req.params.contract}/${req.params.tokenID}`,
+        { waitUntil: "networkidle2" }
       );
 
       var name = await page.$eval(
@@ -50,8 +51,6 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
       });
 
       await browser.close();
-
-      console.log(TOKEN);
     } catch (error) {
       console.log("===ERROR===");
       //console.log(error);
@@ -64,7 +63,6 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
         price: price == undefined ? "Unlisted" : price,
         chain: req.params.chain,
       });
-      console.log(TOKEN);
     }
   };
 
@@ -73,7 +71,8 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
       const browser = await puppeteer.launch();
       const page = await browser.newPage();
       await page.goto(
-        `https://nftrade.com/assets/${req.params.chain}/${req.params.contract}/${req.params.tokenID}`
+        `https://nftrade.com/assets/${req.params.chain}/${req.params.contract}/${req.params.tokenID}`,
+        { waitUntil: "networkidle2" }
       );
 
       var url = await page.url();
@@ -103,8 +102,6 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
       });
 
       await browser.close();
-
-      console.log(TOKEN);
     } catch (error) {
       //console.log(error);
       console.log("===ERROR===");
@@ -117,7 +114,6 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
         price: price == undefined ? "Unlisted" : price,
         chain: req.params.chain,
       });
-      console.log(TOKEN);
     }
   };
 
@@ -127,10 +123,8 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
       const page = await browser.newPage();
       await page.goto(
         `https://rarible.com/token/${req.params.contract}:${req.params.tokenID}?tab=details`,
-        { waitUntil: "networkidle0" }
+        { waitUntil: "networkidle2" }
       );
-
-      await page.screenshot({ path: "ananinami.png" });
 
       var url, imgUrl, price, name;
 
@@ -176,6 +170,7 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
         price: price == undefined ? "Unlisted" : price,
         chain: req.params.chain,
       });
+
       console.log(TOKEN);
       res.json(TOKEN);
     }
@@ -187,6 +182,8 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
   rarible();
 
   console.log(TOKEN.length);
+  console.log(TOKEN);
+
   /* if (TOKEN.length == 2) {
     res.json(TOKEN);
   } */
