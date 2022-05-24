@@ -24,7 +24,7 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
         { waitUntil: "networkidle2" }
       );
 
-      await page.waitForTimeout(4000);
+      await page.waitForTimeout(5000);
 
       var name = await page.$eval(
         "#__next > div.css-9nfnvx > div > div > div > div > div.css-m9jvpx > div.css-81whtp > div.css-1stlkl > h1",
@@ -76,7 +76,7 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
         `https://nftrade.com/assets/${req.params.chain}/${req.params.contract}/${req.params.tokenID}`
       );
 
-      await page.waitForTimeout(4000);
+      await page.waitForTimeout(5000);
 
       var url = await page.url();
 
@@ -128,7 +128,7 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
         `https://rarible.com/token/${req.params.contract}:${req.params.tokenID}?tab=details`
       );
 
-      await page.waitForTimeout(4000);
+      await page.waitForTimeout(5000);
 
       var url = await page.url();
 
@@ -174,13 +174,14 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
 
   const niftyGateway = async () => {
     try {
-      const browser = await puppeteer.launch();
+      const browser = await puppeteer.launch({
+        headless: false,
+      });
       const page = await browser.newPage();
       await page.goto(
-        `https://niftygateway.com/marketplace/item/${req.params.contract}/${req.params.tokenID}`
+        `https://niftygateway.com/marketplace/item/${req.params.contract}/${req.params.tokenID}`,
+        { waitUntil: "domcontentloaded" }
       );
-
-      await page.waitForTimeout(4000);
 
       await page.evaluate(() => {
         localStorage.setItem(
@@ -188,6 +189,8 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
           JSON.stringify({ displayCurrency: "ETH" })
         );
       });
+      await page.setDefaultTimeout(5000);
+      //await page.waitForTimeout(5000);
 
       var url = await page.url();
 
@@ -247,7 +250,7 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
   looksRare();
   NFTrade();
   rarible();
-  niftyGateway();
+  //niftyGateway();
 
   /* if (TOKEN.length == 2) {
     res.json(TOKEN);
