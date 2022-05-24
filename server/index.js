@@ -43,10 +43,10 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
 
       TOKEN.push({
         marketplace: "LooksRare",
+        name: name == undefined ? "page-not-found" : name,
+        price: price == undefined ? "Unlisted" : price,
         url,
-        imgUrl,
-        name,
-        price,
+        imgUrl: imgUrl == undefined ? "page-not-found" : imgUrl,
         chain: req.params.chain,
       });
 
@@ -57,10 +57,10 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
 
       TOKEN.push({
         marketplace: "LooksRare",
-        name,
-        url,
-        imgUrl,
+        name: name == undefined ? "page-not-found" : name,
         price: price == undefined ? "Unlisted" : price,
+        url,
+        imgUrl: imgUrl == undefined ? "page-not-found" : imgUrl,
         chain: req.params.chain,
       });
     }
@@ -94,10 +94,10 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
 
       TOKEN.push({
         marketplace: "NFTrade",
-        name,
+        name: name == undefined ? "page-not-found" : name,
+        price: price == undefined ? "Unlisted" : price,
         url,
-        imgUrl,
-        price,
+        imgUrl: imgUrl == undefined ? "page-not-found" : imgUrl,
         chain: req.params.chain,
       });
 
@@ -108,10 +108,10 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
 
       TOKEN.push({
         marketplace: "NFTrade",
-        name,
-        url,
-        imgUrl,
+        name: name == undefined ? "page-not-found" : name,
         price: price == undefined ? "Unlisted" : price,
+        url,
+        imgUrl: imgUrl == undefined ? "page-not-found" : imgUrl,
         chain: req.params.chain,
       });
     }
@@ -123,10 +123,9 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
       const page = await browser.newPage();
       await page.goto(
         `https://rarible.com/token/${req.params.contract}:${req.params.tokenID}?tab=details`,
-        { waitUntil: "networkidle2" }
+        { waitUntil: "domcontentloaded" }
       );
-
-      var url, imgUrl, price, name;
+      await page.screenshot({ path: "ananza.png", fullPage: true });
 
       var url = await page.url();
 
@@ -135,22 +134,83 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
         (el) => el.textContent
       );
 
-      var price = await page.$eval(
-        "#root .sc-bdvvtL.sc-hKwDye.sc-eCImPb.klyGzw",
-        (el) => el.dataset.price
-      );
-
       var imgUrl = await page.$eval(
         "#root .sc-bdvvtL.sc-ikJyIC.sc-jJoQJp.cJszuA.gXrHpT.sc-kmQMED.bwToMy",
         (el) => el.src
       );
 
+      var price = await page.$eval(
+        "#root .sc-bdvvtL.sc-hKwDye.sc-eCImPb.klyGzw",
+        (el) => el.dataset.price
+      );
+
       TOKEN.push({
         marketplace: "Rarible",
-        url,
-        imgUrl,
-        name,
+        name: name == undefined ? "page-not-found" : name,
         price: price == undefined ? "Unlisted" : price,
+        url,
+        imgUrl: imgUrl == undefined ? "page-not-found" : imgUrl,
+        chain: req.params.chain,
+      });
+
+      await browser.close();
+    } catch (error) {
+      console.log("===ERROR===");
+      //console.log(error);
+
+      TOKEN.push({
+        marketplace: "Rarible",
+        name: name == undefined ? "page-not-found" : name,
+        price: price == undefined ? "Unlisted" : price,
+        url,
+        imgUrl: imgUrl == undefined ? "page-not-found" : imgUrl,
+        chain: req.params.chain,
+      });
+    }
+  };
+
+  const niftyGateway = async () => {
+    try {
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
+      await page.goto(
+        `https://niftygateway.com/marketplace/item/${req.params.contract}/${req.params.tokenID}`
+      );
+
+      await page.evaluate(() => {
+        localStorage.setItem(
+          "preferences",
+          JSON.stringify({ displayCurrency: "ETH" })
+        );
+      });
+
+      var url = await page.url();
+
+      var name = await page.$eval(
+        "#root > div > div.MuiBox-root.css-ne2sxb > div > div > div:nth-child(2) > div.MuiBox-root.css-1vnjyhs > h3",
+        (el) => el.textContent
+      );
+
+      var imgUrl = await page.$eval(
+        "#root > div > div.MuiBox-root.css-ne2sxb > div > div > div:nth-child(1) > div > div > div > div > img:last-child",
+        (el) => el.src
+      );
+
+      var price = await page.$eval(
+        "#root > div > div.MuiBox-root.css-ne2sxb > div > div > div:nth-child(2) > div.MuiBox-root.css-lbown3 > div > a > span > span:nth-child(2)",
+        (el) => el.textContent
+      );
+
+      console.log("Fotoğraf linki = ");
+      console.log(imgUrl);
+
+      // undefined == page-not-found && Unlisted
+      TOKEN.push({
+        marketplace: "NiftyGateWay",
+        name: name == undefined ? "page-not-found" : name,
+        price: price == undefined ? "Unlisted" : price,
+        url,
+        imgUrl: imgUrl == undefined ? "page-not-found" : imgUrl,
         chain: req.params.chain,
       });
 
@@ -161,13 +221,16 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
     } catch (error) {
       console.log("===ERROR===");
       //console.log(error);
+      console.log("Fotoğraf linki = ");
+      console.log(imgUrl);
 
+      // undefined == page-not-found && Unlisted
       TOKEN.push({
-        marketplace: "Rarible",
-        name,
-        url,
-        imgUrl,
+        marketplace: "NiftyGateWay",
+        name: name == undefined ? "page-not-found" : name,
         price: price == undefined ? "Unlisted" : price,
+        url,
+        imgUrl: imgUrl == undefined ? "page-not-found" : imgUrl,
         chain: req.params.chain,
       });
 
@@ -180,6 +243,7 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
   looksRare();
   NFTrade();
   rarible();
+  niftyGateway();
 
   console.log(TOKEN.length);
   console.log(TOKEN);
