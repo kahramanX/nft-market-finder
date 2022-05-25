@@ -19,6 +19,7 @@ export const site = createSlice({
       state.chain = action.payload;
     },
     setThemeMode: (state, action) => {
+      console.log(action.payload);
       state.themeMode = action.payload;
     },
   },

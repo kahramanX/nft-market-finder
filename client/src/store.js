@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import nftInfoSlice from "./features/nftInfoSlice";
+import site from "./features/site";
 
 export default configureStore({
   reducer: {
-    nftInfos: nftInfoSlice,
+    site: site,
   },
 });

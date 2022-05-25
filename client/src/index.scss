@@ -1,7 +1,69 @@
-@import url("https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+/*
+Thin 100
+ExtraLght 200
+Light 300
+Regular 400
+Medium 500
+SemiBold 600
+Bold 700
+ExtraBold 800
+Black 900
+*/
+
+// Color Variables
+$primary-color: #002ef1;
+$secondary-color: #ffb802;
+$error-color: #fe3f61;
+$success-color: #009846;
+$warning-color: #ff6711;
+$gradient-primary: linear-gradient(108.08deg, #0000eb -2.53%, #004bfb 106.16%);
+$gradient-secondary: gradient(108.08deg, #ff9c00 -2.53%, #ffdb03 123.11%);
+$gradient-accent: linear-gradient(114.44deg, #0038f5 0%, #9f03ff 100%);
+
+body[data-theme="dark"] {
+  --first-color: #222222;
+  --second-color: #333333;
+  --third-color: #555555;
+  --fourth-color: #888888;
+}
+
+body[data-theme="light"] {
+  --first-color: #dcdcdc;
+  --second-color: #f0f0f0;
+  --third-color: #f8f8f8;
+  --fourth-color: #fcfcfc;
+}
+
+// Auto detect user's theme mode selection
+/* @media (prefers-color-scheme: dark) {
+  body {
+    --first-color: #222222;
+    --second-color: #333333;
+    --third-color: #555555;
+    --fourth-color: #888888;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+    --first-color: #dcdcdc;
+    --second-color: #f0f0f0;
+    --third-color: #f8f8f8;
+    --fourth-color: #fcfcfc;
+  }
+} */
+
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style-type: none;
+}
 
 body {
-  font-family: "Prompt", sans-serif;
+  background-color: var(--first-color);
+  font-family: "Epilogue", sans-serif;
 }
 
 header {
