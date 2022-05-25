@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const nftInfoSlice = createSlice({
-  name: "NFTInputs",
+export const site = createSlice({
+  name: "SiteInfos",
   initialState: {
     contract: "",
     tokenId: "",
     chain: "",
+    themeMode: "",
   },
   reducers: {
     setContract: (state, action) => {
@@ -17,9 +18,12 @@ export const nftInfoSlice = createSlice({
     setChain: (state, action) => {
       state.chain = action.payload;
     },
+    setThemeMode: (state, action) => {
+      state.themeMode = action.payload;
+    },
   },
 });
 
-export const { setContract, setTokenId, setChain } = nftInfoSlice.actions;
+export const { setContract, setTokenId, setChain, setThemeMode } = site.actions;
 
-export default nftInfoSlice.reducer;
+export default site.reducer;

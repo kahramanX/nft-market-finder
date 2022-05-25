@@ -4,11 +4,12 @@ import SeeOnMarketPlaces from "./SeeOnMarketPlaces";
 
 //Redux
 import { useDispatch, useSelector } from "react-redux";
-import { setContract, setTokenId, setChain } from "../features/nftInfoSlice";
+import { setContract, setTokenId, setChain } from "../features/site";
 
 function GetNFTInfo() {
   const dispatch = useDispatch();
-  const { contract, tokenId, chain } = useSelector((state) => state.nftInfos);
+  const { contract, tokenId, chain } = useSelector((state) => state.site);
+
   function handleButton() {
     console.log("tıklandı");
   }

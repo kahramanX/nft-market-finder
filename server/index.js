@@ -156,6 +156,7 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
         chain: req.params.chain,
       });
 
+      res.json(TOKEN);
       await browser.close();
     } catch (error) {
       console.log("===ERROR===");
@@ -169,6 +170,7 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
         imgUrl: imgUrl == undefined ? "page-not-found" : imgUrl,
         chain: req.params.chain,
       });
+      res.json(TOKEN);
     }
   };
 
