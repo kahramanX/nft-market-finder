@@ -2,7 +2,7 @@
 import { useSelector } from "react-redux";
 
 function SelectedNFTInfos() {
-  const { contract, tokenId, chain } = useSelector((state) => state.nftInfos);
+  const { contract, tokenId, chain } = useSelector((state) => state.site);
 
   return (
     <div className="NFT-infos-container">

@@ -3,11 +3,14 @@ import axios from "axios";
 
 function SeeOnMarketPalaces() {
   useEffect(() => {
-    axios
-      .get(`http://localhost:3001${window.location.pathname}`, {
-        mode: "no-cors",
-      })
-      .then((res) => console.log(res.data));
+    console.log(window.location.pathname.includes("0x"));
+    if (window.location.pathname.length > 10) {
+      axios
+        .get(`http://localhost:3001${window.location.pathname}`, {
+          mode: "no-cors",
+        })
+        .then((res) => console.log(res.data));
+    }
   }, []);
 
   return (
