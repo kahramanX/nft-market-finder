@@ -21,39 +21,6 @@ $gradient-primary: linear-gradient(108.08deg, #0000eb -2.53%, #004bfb 106.16%);
 $gradient-secondary: gradient(108.08deg, #ff9c00 -2.53%, #ffdb03 123.11%);
 $gradient-accent: linear-gradient(114.44deg, #0038f5 0%, #9f03ff 100%);
 
-body[data-theme="dark"] {
-  --first-color: #222222;
-  --second-color: #333333;
-  --third-color: #555555;
-  --fourth-color: #888888;
-}
-
-body[data-theme="light"] {
-  --first-color: #dcdcdc;
-  --second-color: #f0f0f0;
-  --third-color: #f8f8f8;
-  --fourth-color: #fcfcfc;
-}
-
-// Auto detect user's theme mode selection
-/* @media (prefers-color-scheme: dark) {
-  body {
-    --first-color: #222222;
-    --second-color: #333333;
-    --third-color: #555555;
-    --fourth-color: #888888;
-  }
-}
-
-@media (prefers-color-scheme: light) {
-  body {
-    --first-color: #dcdcdc;
-    --second-color: #f0f0f0;
-    --third-color: #f8f8f8;
-    --fourth-color: #fcfcfc;
-  }
-} */
-
 * {
   margin: 0;
   padding: 0;
@@ -62,7 +29,6 @@ body[data-theme="light"] {
 }
 
 body {
-  background-color: var(--first-color);
   font-family: "Epilogue", sans-serif;
 }
 
@@ -72,6 +38,53 @@ header {
   justify-content: space-evenly;
   font-weight: 500;
   font-size: 2em;
+
+  .checkbox {
+    opacity: 0;
+    position: absolute;
+
+    &:checked + .label .ball {
+      transform: translateX(24px);
+      background-color: black;
+    }
+
+    &:checked + .label {
+      background-color: white;
+    }
+  }
+
+  .label {
+    width: 40px;
+    background-color: #111;
+    display: flex;
+    border-radius: 50px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    position: relative;
+    transform: scale(1.5);
+
+    .moon {
+      font-size: 15px;
+      color: gray;
+    }
+
+    .sun {
+      font-size: 15px;
+      color: yellow;
+    }
+
+    .ball {
+      width: 20px;
+      height: 20px;
+      background-color: white;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      border-radius: 50%;
+      transition: transform 0.2s linear;
+    }
+  }
 }
 
 .input-container {
