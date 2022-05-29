@@ -7,6 +7,7 @@ export const site = createSlice({
     tokenId: "",
     chain: "",
     themeMode: "",
+    dataFromMarket: "",
   },
   reducers: {
     setContract: (state, action) => {
@@ -19,12 +20,21 @@ export const site = createSlice({
       state.chain = action.payload;
     },
     setThemeMode: (state, action) => {
-      console.log(action.payload);
       state.themeMode = action.payload;
+    },
+    setDataFromMarket: (state, action) => {
+      console.log(action.payload);
+      state.dataFromMarket = action.payload;
     },
   },
 });
 
-export const { setContract, setTokenId, setChain, setThemeMode } = site.actions;
+export const {
+  setContract,
+  setTokenId,
+  setChain,
+  setThemeMode,
+  setDataFromMarket,
+} = site.actions;
 
 export default site.reducer;

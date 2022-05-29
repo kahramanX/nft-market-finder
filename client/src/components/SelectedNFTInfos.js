@@ -2,12 +2,20 @@
 import { useSelector } from "react-redux";
 
 function SelectedNFTInfos() {
-  const { contract, tokenId, chain } = useSelector((state) => state.site);
-
+  const { contract, tokenId, chain, dataFromMarket } = useSelector(
+    (state) => state.site
+  );
+  //  //dataFromMarket ? dataFromMarket[0].imgUrl : "zoort"
   return (
     <div className="NFT-infos-container">
       <img
-        src="https://lh3.googleusercontent.com/qsyptaf_Tsm4KhHKjKMRuA8aDYfGGz-GXmAaVkrc2g56AoRIR_9OiSeqIOl5F6Eb_oYE-IqjASl7OvfzaAEfmxw7Upk-NOTT-TyqRA=w600"
+        src={
+          dataFromMarket
+            ? dataFromMarket[0].imgUrl ||
+              dataFromMarket[1].imgUrl ||
+              dataFromMarket[2].imgUrl
+            : "anan"
+        }
         alt="NFT img"
       />
 
@@ -19,7 +27,6 @@ function SelectedNFTInfos() {
           <span className="info-title">Token ID:</span> {tokenId}
         </li>
         <li>
-          {" "}
           <span className="info-title">Network:</span> {chain}
         </li>
       </ul>

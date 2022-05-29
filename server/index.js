@@ -155,7 +155,7 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
         imgUrl: imgUrl == undefined ? "page-not-found" : imgUrl,
         chain: req.params.chain,
       });
-
+      console.log(TOKEN.length);
       res.json(TOKEN);
       await browser.close();
     } catch (error) {
@@ -170,6 +170,7 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
         imgUrl: imgUrl == undefined ? "page-not-found" : imgUrl,
         chain: req.params.chain,
       });
+      console.log(TOKEN.length);
       res.json(TOKEN);
     }
   };
@@ -253,10 +254,6 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
   NFTrade();
   rarible();
   //niftyGateway();
-
-  /* if (TOKEN.length == 2) {
-    res.json(TOKEN);
-  } */
 });
 
 app.post("/token/:chain/:contract/:tokenID", (req, res) => {

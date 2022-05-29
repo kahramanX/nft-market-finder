@@ -9,6 +9,9 @@ import GetNFTInfo from "./components/GetNFTInfo";
 import SelectedNFTInfos from "./components/SelectedNFTInfos";
 import SeeOnMarketPlaces from "./components/SeeOnMarketPlaces";
 
+//Redux
+import { useSelector } from "react-redux";
+
 function App() {
   useEffect(() => {
     var css =
@@ -17,12 +20,19 @@ function App() {
     console.log("%c\nall code runs happy", css);
   }, []);
 
+  const { dataFromMarket } = useSelector((state) => state.site);
+
   return (
     <div className="App">
       <GetNFTInfo />
       <section className="NFT-info-section">
-        <SelectedNFTInfos />
-        <SeeOnMarketPlaces />
+        {dataFromMarket === "" || dataFromMarket.length === 0 ? (
+          "There is no NFT info. Please try again"
+        ) : (
+          <>
+            <SelectedNFTInfos /> <SeeOnMarketPlaces />
+          </>
+        )}
       </section>
     </div>
   );

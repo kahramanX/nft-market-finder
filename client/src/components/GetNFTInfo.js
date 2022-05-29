@@ -1,6 +1,17 @@
 //Redux
 import { useDispatch, useSelector } from "react-redux";
-import { setContract, setTokenId, setChain } from "../features/site";
+import {
+  setContract,
+  setTokenId,
+  setChain,
+  setDataFromMarket,
+} from "../features/site";
+
+//React
+import { useEffect } from "react";
+
+//Axios
+import axios from "axios";
 
 function GetNFTInfo() {
   const dispatch = useDispatch();
@@ -9,6 +20,17 @@ function GetNFTInfo() {
   function handleButton() {
     console.log("tıklandı");
   }
+
+  useEffect(() => {
+    console.log(window.location.pathname.includes("0x"));
+    if (window.location.pathname.length > 10) {
+      axios
+        .get(`http://localhost:3001${window.location.pathname}`, {
+          mode: "no-cors",
+        })
+        .then((res) => dispatch(setDataFromMarket(res.data)));
+    }
+  }, [dispatch]);
 
   return (
     <>
@@ -23,7 +45,7 @@ function GetNFTInfo() {
               onChange={(e) => dispatch(setContract(e.target.value))}
               className="get-contract"
               type="text"
-              placeholder="Contract here"
+              placeholder={contract.length == 0 ? "Contract Here" : contract}
             />
             <input
               name="tokenID"
