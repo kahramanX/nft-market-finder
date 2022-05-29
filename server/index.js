@@ -12,7 +12,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.get("/token/:chain/:contract/:tokenID", (req, res) => {
+  var mainInfo = {
+    contract: req.params.contract,
+    tokenID: req.params.tokenID,
+    chain: req.params.chain,
+  };
+
   var TOKEN = [];
+
   console.log("CHAIN = " + req.params.chain);
 
   const looksRare = async () => {
@@ -156,7 +163,9 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
         chain: req.params.chain,
       });
       console.log(TOKEN.length);
-      res.json(TOKEN);
+      var General = [{ TOKEN, mainInfo }];
+
+      res.json(General);
       await browser.close();
     } catch (error) {
       console.log("===ERROR===");
@@ -171,7 +180,9 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
         chain: req.params.chain,
       });
       console.log(TOKEN.length);
-      res.json(TOKEN);
+      var General = [{ TOKEN, mainInfo }];
+
+      res.json(General);
     }
   };
 
@@ -222,6 +233,8 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
         chain: req.params.chain,
       });
 
+      //  TOKEN.push(general);
+
       await browser.close();
 
       console.log(TOKEN);
@@ -241,6 +254,8 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
         imgUrl: imgUrl == undefined ? "page-not-found" : imgUrl,
         chain: req.params.chain,
       });
+
+      // TOKEN.push(general);
 
       console.log(TOKEN);
       console.log(TOKEN.length);

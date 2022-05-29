@@ -20,13 +20,13 @@ function App() {
     console.log("%c\nall code runs happy", css);
   }, []);
 
-  const { dataFromMarket } = useSelector((state) => state.site);
+  const { nftInfos } = useSelector((state) => state.site);
 
   return (
     <div className="App">
       <GetNFTInfo />
       <section className="NFT-info-section">
-        {dataFromMarket === "" || dataFromMarket.length === 0 ? (
+        {nftInfos === "" || nftInfos.length === 0 ? (
           "There is no NFT info. Please try again"
         ) : (
           <>

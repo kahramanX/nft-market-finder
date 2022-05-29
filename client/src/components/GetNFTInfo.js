@@ -4,7 +4,8 @@ import {
   setContract,
   setTokenId,
   setChain,
-  setDataFromMarket,
+  setNftInfos,
+  setGeneralInfo,
 } from "../features/site";
 
 //React
@@ -28,7 +29,10 @@ function GetNFTInfo() {
         .get(`http://localhost:3001${window.location.pathname}`, {
           mode: "no-cors",
         })
-        .then((res) => dispatch(setDataFromMarket(res.data)));
+        .then((res) => {
+          dispatch(setNftInfos(res.data[0].TOKEN));
+          dispatch(setGeneralInfo(res.data[0].mainInfo));
+        });
     }
   }, [dispatch]);
 
@@ -45,7 +49,7 @@ function GetNFTInfo() {
               onChange={(e) => dispatch(setContract(e.target.value))}
               className="get-contract"
               type="text"
-              placeholder={contract.length == 0 ? "Contract Here" : contract}
+              placeholder="Contract Here"
             />
             <input
               name="tokenID"

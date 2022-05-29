@@ -7,7 +7,8 @@ export const site = createSlice({
     tokenId: "",
     chain: "",
     themeMode: "",
-    dataFromMarket: "",
+    nftInfos: "",
+    generalInfo: "",
   },
   reducers: {
     setContract: (state, action) => {
@@ -22,9 +23,13 @@ export const site = createSlice({
     setThemeMode: (state, action) => {
       state.themeMode = action.payload;
     },
-    setDataFromMarket: (state, action) => {
+    setNftInfos: (state, action) => {
       console.log(action.payload);
-      state.dataFromMarket = action.payload;
+      state.nftInfos = action.payload;
+    },
+    setGeneralInfo: (state, action) => {
+      console.log(action.payload);
+      state.generalInfo = action.payload;
     },
   },
 });
@@ -34,7 +39,8 @@ export const {
   setTokenId,
   setChain,
   setThemeMode,
-  setDataFromMarket,
+  setNftInfos,
+  setGeneralInfo,
 } = site.actions;
 
 export default site.reducer;
