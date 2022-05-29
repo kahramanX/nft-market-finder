@@ -21,13 +21,13 @@ function App() {
   }, []);
 
   const { nftInfos } = useSelector((state) => state.site);
-
+  console.log(nftInfos[0]?.marketplace);
   return (
     <div className="App">
       <GetNFTInfo />
       <section className="NFT-info-section">
         {nftInfos === "" || nftInfos.length === 0 ? (
-          "There is no NFT info. Please try again"
+          "Please enter an nft information"
         ) : (
           <>
             <SelectedNFTInfos /> <SeeOnMarketPlaces />

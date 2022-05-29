@@ -1,7 +1,7 @@
 function Header() {
   return (
     <header>
-      <div>NFT Market Price Finder 🛰️</div>
+      <a href="/">NFT Market Price Finder 🛰️</a>
       <div> 👋</div>
     </header>
   );

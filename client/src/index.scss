@@ -18,7 +18,11 @@ $error-color: #fe3f61;
 $success-color: #009846;
 $warning-color: #ff6711;
 $gradient-primary: linear-gradient(108.08deg, #0000eb -2.53%, #004bfb 106.16%);
-$gradient-secondary: gradient(108.08deg, #ff9c00 -2.53%, #ffdb03 123.11%);
+$gradient-secondary: linear-gradient(
+  108.08deg,
+  #ff9c00 -2.53%,
+  #ffdb03 123.11%
+);
 $gradient-accent: linear-gradient(114.44deg, #0038f5 0%, #9f03ff 100%);
 
 * {
@@ -45,6 +49,10 @@ header {
   width: 100%;
   box-shadow: 0px 81px 106px rgba(0, 0, 0, 0.07),
     0px 10.1425px 13.2728px rgba(0, 0, 0, 0.0290085);
+
+  a {
+    color: black;
+  }
 }
 
 .input-container {
@@ -137,12 +145,20 @@ header {
     padding: 20px;
     filter: drop-shadow(0px 10px 24px rgba(0, 0, 0, 0.08));
 
+    .nft-title-name {
+      padding: 20px;
+      font-size: 1.5em;
+      font-weight: 600;
+    }
+
     img {
+      width: 100%;
       border-radius: 32px;
     }
 
     .selected-infos {
       padding: 10px;
+      font-size: 1.3em;
 
       li {
         padding: 10px;
@@ -166,17 +182,28 @@ header {
       margin-bottom: 30px;
     }
 
+    .nft-list-desc {
+      border-radius: 24px;
+      padding: 10px;
+      border: 1px solid gray;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
     .markets-container {
       .market {
         display: flex;
         justify-content: space-between;
         align-items: center;
         font-size: 1.3em;
-        border: 1px solid red;
+        border: 1px solid $gradient-primary;
+        background-color: white;
+        background: $gradient-secondary;
         border-radius: 24px;
         padding: 20px;
         margin-bottom: 20px;
-        color: black;
+        color: white;
       }
 
       .market-name {

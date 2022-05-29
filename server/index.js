@@ -162,10 +162,10 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
         imgUrl: imgUrl == undefined ? "page-not-found" : imgUrl,
         chain: req.params.chain,
       });
-      console.log(TOKEN.length);
+      //  console.log(TOKEN.length);
       var General = [{ TOKEN, mainInfo }];
 
-      res.json(General);
+      //   res.json(General);
       await browser.close();
     } catch (error) {
       console.log("===ERROR===");
@@ -179,23 +179,22 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
         imgUrl: imgUrl == undefined ? "page-not-found" : imgUrl,
         chain: req.params.chain,
       });
-      console.log(TOKEN.length);
+      // console.log(TOKEN.length);
       var General = [{ TOKEN, mainInfo }];
 
-      res.json(General);
+      //   res.json(General);
     }
   };
 
   const niftyGateway = async () => {
     try {
-      const browser = await puppeteer.launch({
-        headless: false,
-      });
+      const browser = await puppeteer.launch();
       const page = await browser.newPage();
       await page.goto(
-        `https://niftygateway.com/marketplace/item/${req.params.contract}/${req.params.tokenID}`,
-        { waitUntil: "domcontentloaded" }
+        `https://niftygateway.com/marketplace/item/${req.params.contract}/${req.params.tokenID}`
       );
+
+      await page.waitForTimeout(5000);
 
       await page.evaluate(() => {
         localStorage.setItem(
@@ -203,8 +202,7 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
           JSON.stringify({ displayCurrency: "ETH" })
         );
       });
-      await page.setDefaultTimeout(5000);
-      //await page.waitForTimeout(5000);
+      //      await page.waitForTimeout(5000);
 
       var url = await page.url();
 
@@ -240,7 +238,9 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
       console.log(TOKEN);
       console.log(TOKEN.length);
 
-      res.json(TOKEN);
+      var General = [{ TOKEN, mainInfo }];
+
+      res.json(General);
     } catch (error) {
       console.log("===ERROR===");
       //console.log(error);
@@ -260,7 +260,9 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
       console.log(TOKEN);
       console.log(TOKEN.length);
 
-      res.json(TOKEN);
+      var General = [{ TOKEN, mainInfo }];
+
+      res.json(General);
     }
   };
 
@@ -268,7 +270,7 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
   looksRare();
   NFTrade();
   rarible();
-  //niftyGateway();
+  niftyGateway();
 });
 
 app.post("/token/:chain/:contract/:tokenID", (req, res) => {

@@ -14,6 +14,10 @@ import { useEffect } from "react";
 //Axios
 import axios from "axios";
 
+//Formik
+import { useFormik } from "formik";
+import * as Yup from "yup";
+
 function GetNFTInfo() {
   const dispatch = useDispatch();
   const { contract, tokenId, chain } = useSelector((state) => state.site);
@@ -23,7 +27,6 @@ function GetNFTInfo() {
   }
 
   useEffect(() => {
-    console.log(window.location.pathname.includes("0x"));
     if (window.location.pathname.length > 10) {
       axios
         .get(`http://localhost:3001${window.location.pathname}`, {

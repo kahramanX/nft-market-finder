@@ -1,24 +1,30 @@
+import { useSelector } from "react-redux";
+
 function SeeOnMarketPalaces() {
+  const { nftInfos } = useSelector((state) => state.site);
+
   return (
     <div className="see-NFT-on-marketplaces">
       <div className="market-title">Which marketplaces is it listed on?</div>
+      <div className="nft-list-desc">
+        <span>Market</span>
+        <span>Price</span>
+        <span>In market?</span>
+      </div>
       <div className="markets-container">
-        <a href="1" className="market">
-          <span className="market-name">Opensea</span>
-          <span className="market-price">20.4</span>
-          <span className="is-listed">✅</span>
-        </a>
-
-        <a href="1" className="market">
-          <span className="market-name">Opensea</span>
-          <span className="market-price"></span>
-          <span className="is-listed">❌</span>
-        </a>
-        <a href="1" className="market">
-          <span className="market-name">Rarible</span>
-          <span className="market-price">21</span>
-          <span className="is-listed">✅</span>
-        </a>
+        {nftInfos.map((nft, index) => {
+          return (
+            <a key={index} href={nft.url} className="market">
+              <span className="market-name">{nft.marketplace}</span>
+              <span className="market-price">
+                {nft.price === "Unlisted" ? "Unlisted" : nft.price}
+              </span>
+              <span className="is-listed">
+                {nft.name === "page-not-found" ? "❌" : "✅"}
+              </span>
+            </a>
+          );
+        })}
       </div>
     </div>
   );
