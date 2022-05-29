@@ -1,5 +1,5 @@
 //React
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 //Sass
 import "./index.scss";
@@ -22,12 +22,30 @@ function App() {
 
   const { nftInfos } = useSelector((state) => state.site);
   console.log(nftInfos[0]?.marketplace);
+  const nftSection = useRef();
+
+  /*  const loadingAnimation = () => {
+    console.log(nftSection.current?.children.length);
+    if (
+      window.location.pathname.includes("0x") &&
+      nftSection.current.children.length === 1
+    ) {
+      return (
+        <div className="loading-container">
+          <div className="lds-dual-ring"></div>
+          <h2>NFT is being scanned in marketplaces, please wait</h2>
+        </div>
+      );
+    }
+  }; */
+
   return (
     <div className="App">
       <GetNFTInfo />
-      <section className="NFT-info-section">
+      <section ref={nftSection} className="NFT-info-section">
+        {/*  {loadingAnimation()} */}
         {nftInfos === "" || nftInfos.length === 0 ? (
-          "Please enter an nft information"
+          <h3>Please enter an nft information</h3>
         ) : (
           <>
             <SelectedNFTInfos /> <SeeOnMarketPlaces />
