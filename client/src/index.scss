@@ -26,10 +26,12 @@ $gradient-accent: linear-gradient(114.44deg, #0038f5 0%, #9f03ff 100%);
   padding: 0;
   text-decoration: none;
   list-style-type: none;
+  border-style: none;
 }
 
 body {
-  font-family: "Epilogue", sans-serif;
+  overflow-x: hidden;
+  font-family: "Epilogue", sans-serif !important;
 }
 
 header {
@@ -38,56 +40,16 @@ header {
   justify-content: space-evenly;
   font-weight: 500;
   font-size: 2em;
-
-  .checkbox {
-    opacity: 0;
-    position: absolute;
-
-    &:checked + .label .ball {
-      transform: translateX(24px);
-      background-color: black;
-    }
-
-    &:checked + .label {
-      background-color: white;
-    }
-  }
-
-  .label {
-    width: 40px;
-    background-color: #111;
-    display: flex;
-    border-radius: 50px;
-    align-items: center;
-    justify-content: space-between;
-    padding: 5px;
-    position: relative;
-    transform: scale(1.5);
-
-    .moon {
-      font-size: 15px;
-      color: gray;
-    }
-
-    .sun {
-      font-size: 15px;
-      color: yellow;
-    }
-
-    .ball {
-      width: 20px;
-      height: 20px;
-      background-color: white;
-      position: absolute;
-      top: 2px;
-      left: 2px;
-      border-radius: 50%;
-      transition: transform 0.2s linear;
-    }
-  }
+  background-color: white;
+  padding: 20px;
+  width: 100%;
+  box-shadow: 0px 81px 106px rgba(0, 0, 0, 0.07),
+    0px 10.1425px 13.2728px rgba(0, 0, 0, 0.0290085);
 }
 
 .input-container {
+  margin-bottom: 50px;
+
   .inputs {
     display: flex;
     align-items: center;
@@ -97,7 +59,9 @@ header {
     .select-network {
       padding: 16px;
       font-size: 1em;
-      font-weight: 600;
+      font-weight: 500;
+      border-radius: 8px;
+      margin-left: 30px;
     }
 
     @media (max-width: 950px) {
@@ -108,8 +72,11 @@ header {
       font-size: 1em;
       width: 30em;
       padding: 15px;
-      color: gray;
-      font-weight: 600;
+      font-weight: 500;
+      border-radius: 8px;
+      background-color: #f0f0f0;
+      color: #555555;
+      line-height: 24px;
 
       &:first-child {
         margin-right: 30px;
@@ -128,17 +95,28 @@ header {
 
     button {
       background-color: white;
+      background: $gradient-accent;
       font-size: 1em;
-      padding: 15px;
-      color: rgb(70, 70, 70);
-      font-weight: 600;
+      padding: 20px;
       transition: background-color 300ms;
+      transition: opacity 300ms;
+      transition: border 300ms;
+      font-weight: 700;
+      color: white;
+      font-size: 1.5em;
+      border-radius: 8px;
 
       &:hover {
         cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>👀</text></svg>")
             16 0,
           auto;
-        background-color: rgb(236, 236, 236);
+        opacity: 0.8;
+      }
+
+      &:disabled {
+        border: 3px solid red;
+        cursor: not-allowed;
+        background: gray;
       }
     }
   }
@@ -147,24 +125,64 @@ header {
 .NFT-info-section {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
 
   @media (max-width: 950px) {
     flex-direction: column;
   }
 
   .NFT-infos-container {
-    border: 2px solid gray;
+    background-color: white;
+    margin-right: 32px;
+    border-radius: 32px;
+    padding: 20px;
+    filter: drop-shadow(0px 10px 24px rgba(0, 0, 0, 0.08));
 
-    @media (max-width: 950px) {
-      display: flex;
-      align-items: center;
-      flex-direction: column;
+    img {
+      border-radius: 32px;
+    }
+
+    .selected-infos {
+      padding: 10px;
+
+      li {
+        padding: 10px;
+
+        .info-title {
+          font-weight: 700;
+        }
+      }
     }
   }
 
   .see-NFT-on-marketplaces {
-    border: 2px solid gray;
+    background-color: white;
+    border-radius: 32px;
+    padding: 30px;
+    filter: drop-shadow(0px 10px 24px rgba(0, 0, 0, 0.08));
+
+    .market-title {
+      font-size: 1.3em;
+      font-weight: 700;
+      margin-bottom: 30px;
+    }
+
+    .markets-container {
+      .market {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1.3em;
+        border: 1px solid red;
+        border-radius: 24px;
+        padding: 20px;
+        margin-bottom: 20px;
+        color: black;
+      }
+
+      .market-name {
+        font-weight: 600;
+      }
+    }
 
     @media (max-width: 950px) {
       display: flex;
@@ -175,7 +193,7 @@ header {
 }
 
 footer {
-  padding: 20px;
+  padding: 40px;
   text-align: center;
   font-weight: 200;
   font-style: italic;

@@ -11,10 +11,17 @@ function SelectedNFTInfos() {
         alt="NFT img"
       />
 
-      <ul>
-        <li>Contract: {contract}</li>
-        <li>Token ID: {tokenId}</li>
-        <li>Network: {chain}</li>
+      <ul className="selected-infos">
+        <li>
+          <span className="info-title">Contract:</span> {contract}
+        </li>
+        <li>
+          <span className="info-title">Token ID:</span> {tokenId}
+        </li>
+        <li>
+          {" "}
+          <span className="info-title">Network:</span> {chain}
+        </li>
       </ul>
     </div>
   );

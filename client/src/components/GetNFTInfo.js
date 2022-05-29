@@ -1,7 +1,3 @@
-//Components
-import SelectedNFTInfos from "./SelectedNFTInfos";
-import SeeOnMarketPlaces from "./SeeOnMarketPlaces";
-
 //Redux
 import { useDispatch, useSelector } from "react-redux";
 import { setContract, setTokenId, setChain } from "../features/site";
@@ -59,10 +55,6 @@ function GetNFTInfo() {
           </div>
         </form>
       </div>
-      <section className="NFT-info-section">
-        <SelectedNFTInfos />
-        <SeeOnMarketPlaces />
-      </section>
     </>
   );
 }

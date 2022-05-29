@@ -6,6 +6,8 @@ import "./index.scss";
 
 //Components
 import GetNFTInfo from "./components/GetNFTInfo";
+import SelectedNFTInfos from "./components/SelectedNFTInfos";
+import SeeOnMarketPlaces from "./components/SeeOnMarketPlaces";
 
 function App() {
   useEffect(() => {
@@ -18,6 +20,10 @@ function App() {
   return (
     <div className="App">
       <GetNFTInfo />
+      <section className="NFT-info-section">
+        <SelectedNFTInfos />
+        <SeeOnMarketPlaces />
+      </section>
     </div>
   );
 }
