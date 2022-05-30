@@ -1,0 +1,262 @@
+@import url("https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+/*
+Thin 100
+ExtraLght 200
+Light 300
+Regular 400
+Medium 500
+SemiBold 600
+Bold 700
+ExtraBold 800
+Black 900
+*/
+
+// Color Variables
+$primary-color: #002ef1;
+$secondary-color: #ffb802;
+$error-color: #fe3f61;
+$success-color: #009846;
+$warning-color: #ff6711;
+$gradient-primary: linear-gradient(108.08deg, #0000eb -2.53%, #004bfb 106.16%);
+$gradient-secondary: linear-gradient(
+  108.08deg,
+  #ff9c00 -2.53%,
+  #ffdb03 123.11%
+);
+$gradient-accent: linear-gradient(114.44deg, #0038f5 0%, #9f03ff 100%);
+
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style-type: none;
+  border-style: none;
+}
+
+body {
+  overflow-x: hidden;
+  font-family: "Epilogue", sans-serif !important;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  font-weight: 500;
+  font-size: 2em;
+  background-color: white;
+  padding: 20px;
+  width: 100%;
+  box-shadow: 0px 81px 106px rgba(0, 0, 0, 0.07),
+    0px 10.1425px 13.2728px rgba(0, 0, 0, 0.0290085);
+
+  a {
+    color: black;
+  }
+}
+
+.input-container {
+  margin-bottom: 50px;
+
+  .inputs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 70px;
+
+    .select-network {
+      padding: 16px;
+      font-size: 1em;
+      font-weight: 500;
+      border-radius: 8px;
+      margin-left: 30px;
+    }
+
+    @media (max-width: 950px) {
+      flex-direction: column;
+    }
+
+    input {
+      font-size: 1em;
+      width: 30em;
+      padding: 15px;
+      font-weight: 500;
+      border-radius: 8px;
+      background-color: #f0f0f0;
+      color: #555555;
+      line-height: 24px;
+
+      &:first-child {
+        margin-right: 30px;
+
+        @media (max-width: 950px) {
+          margin-right: 0px;
+          margin-bottom: 20px;
+        }
+      }
+    }
+  }
+
+  .search-btn-container {
+    display: flex;
+    justify-content: center;
+
+    button {
+      background-color: white;
+      background: $gradient-accent;
+      font-size: 1em;
+      padding: 20px;
+      transition: background-color 300ms;
+      transition: opacity 300ms;
+      transition: border 300ms;
+      font-weight: 700;
+      color: white;
+      font-size: 1.5em;
+      border-radius: 8px;
+
+      &:hover {
+        cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>👀</text></svg>")
+            16 0,
+          auto;
+        opacity: 0.8;
+      }
+
+      &:disabled {
+        border: 3px solid red;
+        cursor: not-allowed;
+        background: gray;
+      }
+    }
+  }
+}
+
+.NFT-info-section {
+  display: flex;
+  justify-content: center;
+
+  @media (max-width: 950px) {
+    flex-direction: column;
+  }
+
+  .loading-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .lds-dual-ring {
+      display: inline-block;
+      width: 80px;
+      height: 80px;
+      margin-bottom: 30px;
+
+      &::after {
+        content: " ";
+        display: block;
+        width: 64px;
+        height: 64px;
+        margin: 8px;
+        border-radius: 50%;
+        border: 8px solid $primary-color;
+        border-color: $primary-color transparent $primary-color transparent;
+        animation: lds-dual-ring 1.2s linear infinite;
+      }
+
+      @keyframes lds-dual-ring {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    }
+  }
+
+  .NFT-infos-container {
+    background-color: white;
+    margin-right: 32px;
+    border-radius: 32px;
+    padding: 20px;
+    filter: drop-shadow(0px 10px 24px rgba(0, 0, 0, 0.08));
+
+    .nft-title-name {
+      padding: 20px;
+      font-size: 1.5em;
+      font-weight: 600;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 32px;
+    }
+
+    .selected-infos {
+      padding: 10px;
+      font-size: 1.3em;
+
+      li {
+        padding: 10px;
+
+        .info-title {
+          font-weight: 700;
+        }
+      }
+    }
+  }
+
+  .see-NFT-on-marketplaces {
+    background-color: white;
+    border-radius: 32px;
+    padding: 30px;
+    filter: drop-shadow(0px 10px 24px rgba(0, 0, 0, 0.08));
+
+    .market-title {
+      font-size: 1.3em;
+      font-weight: 700;
+      margin-bottom: 30px;
+    }
+
+    .nft-list-desc {
+      border-radius: 24px;
+      padding: 10px;
+      border: 1px solid gray;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .markets-container {
+      .market {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1.3em;
+        border: 1px solid $gradient-primary;
+        background-color: white;
+        background: $gradient-secondary;
+        border-radius: 24px;
+        padding: 20px;
+        margin-bottom: 20px;
+        color: white;
+      }
+
+      .market-name {
+        font-weight: 600;
+      }
+    }
+
+    @media (max-width: 950px) {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+  }
+}
+
+footer {
+  padding: 40px;
+  text-align: center;
+  font-weight: 200;
+  font-style: italic;
+}
