@@ -11,10 +11,10 @@ app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.get("/token/:chain/:contract/:tokenID", (req, res) => {
+app.get("/token/:chain/:contract/:tokenid", (req, res) => {
   var mainInfo = {
     contract: req.params.contract,
-    tokenID: req.params.tokenID,
+    tokenID: req.params.tokenid,
     chain: req.params.chain,
   };
 
@@ -27,7 +27,7 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
       const browser = await puppeteer.launch();
       const page = await browser.newPage();
       await page.goto(
-        `https://looksrare.org/collections/${req.params.contract}/${req.params.tokenID}`,
+        `https://looksrare.org/collections/${req.params.contract}/${req.params.tokenid}`,
         { waitUntil: "networkidle2" }
       );
 
@@ -80,7 +80,7 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
       const browser = await puppeteer.launch();
       const page = await browser.newPage();
       await page.goto(
-        `https://nftrade.com/assets/${req.params.chain}/${req.params.contract}/${req.params.tokenID}`
+        `https://nftrade.com/assets/${req.params.chain}/${req.params.contract}/${req.params.tokenid}`
       );
 
       await page.waitForTimeout(5000);
@@ -132,7 +132,7 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
       const browser = await puppeteer.launch();
       const page = await browser.newPage();
       await page.goto(
-        `https://rarible.com/token/${req.params.contract}:${req.params.tokenID}?tab=details`
+        `https://rarible.com/token/${req.params.contract}:${req.params.tokenid}?tab=details`
       );
 
       await page.waitForTimeout(5000);
@@ -191,7 +191,7 @@ app.get("/token/:chain/:contract/:tokenID", (req, res) => {
       const browser = await puppeteer.launch();
       const page = await browser.newPage();
       await page.goto(
-        `https://niftygateway.com/marketplace/item/${req.params.contract}/${req.params.tokenID}`
+        `https://niftygateway.com/marketplace/item/${req.params.contract}/${req.params.tokenid}`
       );
 
       await page.waitForTimeout(5000);
@@ -279,7 +279,7 @@ app.post("/token/:chain/:contract/:tokenID", (req, res) => {
   console.log(req.url);
 
   res.redirect(
-    `http://localhost:3000/token/${req.body.chain}/${req.body.contract}/${req.body.tokenID}`
+    `http://localhost:3000/token/${req.body.chain}/${req.body.contract}/${req.body.tokenid}`
   );
 });
 
