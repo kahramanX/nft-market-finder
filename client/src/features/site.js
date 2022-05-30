@@ -3,22 +3,22 @@ import { createSlice } from "@reduxjs/toolkit";
 export const site = createSlice({
   name: "SiteInfos",
   initialState: {
-    contract: "",
-    tokenId: "",
-    chain: "",
+    contractRedux: "",
+    tokenIdRedux: "",
+    chainRedux: "",
     themeMode: "",
     nftInfos: "",
     generalInfo: "",
   },
   reducers: {
     setContract: (state, action) => {
-      state.contract = action.payload;
+      state.contractRedux = action.payload;
     },
     setTokenId: (state, action) => {
-      state.tokenId = action.payload;
+      state.tokenIdRedux = action.payload;
     },
     setChain: (state, action) => {
-      state.chain = action.payload;
+      state.chainRedux = action.payload;
     },
     setThemeMode: (state, action) => {
       state.themeMode = action.payload;
