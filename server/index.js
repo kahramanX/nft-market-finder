@@ -23,9 +23,11 @@ app.get("/token/:chain/:contract/:tokenid", (req, res) => {
   console.log("CHAIN = " + req.params.chain);
 
   const looksRare = async () => {
+    const browser = await puppeteer.launch();
+
     try {
-      const browser = await puppeteer.launch();
       const page = await browser.newPage();
+
       await page.goto(
         `https://looksrare.org/collections/${req.params.contract}/${req.params.tokenid}`,
         { waitUntil: "networkidle2" }
@@ -33,12 +35,12 @@ app.get("/token/:chain/:contract/:tokenid", (req, res) => {
 
       await page.waitForTimeout(5000);
 
+      var url = await page.url();
+
       var name = await page.$eval(
         "#__next > div.css-9nfnvx > div > div > div > div > div.css-m9jvpx > div.css-81whtp > div.css-1stlkl > h1",
         (el) => el.textContent
       );
-
-      var url = await page.url();
 
       var imgUrl = await page.$eval(
         "#__next > div.css-9nfnvx > div > div > div > div > div.css-gr2nf3 > div > div.css-wrvyyq > div > div.css-dr5tha > div.chakra-aspect-ratio.css-1d7b5tk > div > div > span > img",
@@ -58,8 +60,6 @@ app.get("/token/:chain/:contract/:tokenid", (req, res) => {
         imgUrl: imgUrl == undefined ? "page-not-found" : imgUrl,
         chain: req.params.chain,
       });
-
-      await browser.close();
     } catch (error) {
       console.log("===ERROR===");
       //console.log(error);
@@ -72,12 +72,15 @@ app.get("/token/:chain/:contract/:tokenid", (req, res) => {
         imgUrl: imgUrl == undefined ? "page-not-found" : imgUrl,
         chain: req.params.chain,
       });
+    } finally {
+      await browser.close();
     }
   };
 
   const NFTrade = async () => {
+    const browser = await puppeteer.launch();
+
     try {
-      const browser = await puppeteer.launch();
       const page = await browser.newPage();
       await page.goto(
         `https://nftrade.com/assets/${req.params.chain}/${req.params.contract}/${req.params.tokenid}`
@@ -110,8 +113,6 @@ app.get("/token/:chain/:contract/:tokenid", (req, res) => {
         imgUrl: imgUrl == undefined ? "page-not-found" : imgUrl,
         chain: req.params.chain,
       });
-
-      await browser.close();
     } catch (error) {
       //console.log(error);
       console.log("===ERROR===");
@@ -124,12 +125,15 @@ app.get("/token/:chain/:contract/:tokenid", (req, res) => {
         imgUrl: imgUrl == undefined ? "page-not-found" : imgUrl,
         chain: req.params.chain,
       });
+    } finally {
+      await browser.close();
     }
   };
 
   const rarible = async () => {
+    const browser = await puppeteer.launch();
+
     try {
-      const browser = await puppeteer.launch();
       const page = await browser.newPage();
       await page.goto(
         `https://rarible.com/token/${req.params.contract}:${req.params.tokenid}?tab=details`
@@ -140,19 +144,24 @@ app.get("/token/:chain/:contract/:tokenid", (req, res) => {
       var url = await page.url();
 
       var name = await page.$eval(
-        "#root .sc-bdvvtL.sc-hKwDye.sc-eCImPb.sc-kOJRsK.cUywCO.lpnvpQ",
+        "#root > div > div > div > div.sc-bdvvtL.sc-gsDKAQ.sc-dkPtRN.sc-eCImPb.bHmTqV.fEuCYr.dKkoen > div > div.sc-bdvvtL.sc-gsDKAQ.sc-dkPtRN.sc-gCEpsI.qfAKJ.fEuCYr.iBRzGw > div > div.ScrollbarsCustom-Wrapper > div > div > div.sc-bdvvtL.sc-gsDKAQ.sc-dkPtRN.iEQkDj.fEuCYr > div > div.sc-bdvvtL.sc-gsDKAQ.sc-dkPtRN.sc-gKclnd.qfAKJ.fEuCYr.hLmGHV > div > div.sc-bdvvtL.sc-gsDKAQ.sc-dkPtRN.sc-fpGCtG.qfAKJ.fEuCYr.haMfJG > h1",
         (el) => el.textContent
       );
 
+      console.log(name);
+
       var imgUrl = await page.$eval(
-        "#root .sc-bdvvtL.sc-ikJyIC.sc-jJoQJp.cJszuA.gXrHpT.sc-kmQMED.bwToMy",
+        "#root > div > div > div > div.sc-bdvvtL.sc-gsDKAQ.sc-dkPtRN.sc-eCImPb.bHmTqV.fEuCYr.dKkoen > div > div.sc-bdvvtL.sc-gsDKAQ.sc-dkPtRN.iVtJMV.fEuCYr.sc-hatQeL.jVevMa > div > img",
         (el) => el.src
       );
+      console.log(imgUrl);
 
       var price = await page.$eval(
-        "#root .sc-bdvvtL.sc-hKwDye.sc-eCImPb.klyGzw",
-        (el) => el.dataset.price
+        "#root > div > div > div > div.sc-bdvvtL.sc-gsDKAQ.sc-dkPtRN.sc-eCImPb.bHmTqV.fEuCYr.dKkoen > div > div.sc-bdvvtL.sc-gsDKAQ.sc-dkPtRN.sc-gCEpsI.qfAKJ.fEuCYr.iBRzGw > div > div.ScrollbarsCustom-Wrapper > div > div > div.sc-bdvvtL.sc-gsDKAQ.sc-dkPtRN.iEQkDj.fEuCYr > div > div.sc-bdvvtL.sc-gsDKAQ.sc-dkPtRN.sc-gKclnd.qfAKJ.fEuCYr.hLmGHV > span > span > span.sc-bdvvtL.sc-iCfMLu.sc-furwcr.sc-eWfVMQ.bqAIdn.fNRzXp > span > span:nth-child(1)",
+        (el) => el.textContent
       );
+
+      console.log(price);
 
       TOKEN.push({
         marketplace: "Rarible",
@@ -166,7 +175,6 @@ app.get("/token/:chain/:contract/:tokenid", (req, res) => {
       var General = [{ TOKEN, mainInfo }];
 
       //   res.json(General);
-      await browser.close();
     } catch (error) {
       console.log("===ERROR===");
       //console.log(error);
@@ -183,12 +191,15 @@ app.get("/token/:chain/:contract/:tokenid", (req, res) => {
       var General = [{ TOKEN, mainInfo }];
 
       //   res.json(General);
+    } finally {
+      await browser.close();
     }
   };
 
   const niftyGateway = async () => {
+    const browser = await puppeteer.launch();
+
     try {
-      const browser = await puppeteer.launch();
       const page = await browser.newPage();
       await page.goto(
         `https://niftygateway.com/marketplace/item/${req.params.contract}/${req.params.tokenid}`
@@ -233,8 +244,6 @@ app.get("/token/:chain/:contract/:tokenid", (req, res) => {
 
       //  TOKEN.push(general);
 
-      await browser.close();
-
       console.log(TOKEN);
       console.log(TOKEN.length);
 
@@ -263,6 +272,8 @@ app.get("/token/:chain/:contract/:tokenid", (req, res) => {
       var General = [{ TOKEN, mainInfo }];
 
       res.json(General);
+    } finally {
+      await browser.close();
     }
   };
 

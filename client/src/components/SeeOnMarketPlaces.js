@@ -20,7 +20,7 @@ function SeeOnMarketPalaces() {
                 {nft.price === "Unlisted" ? "Unlisted" : nft.price}
               </span>
               <span className="is-listed">
-                {nft.name === "page-not-found" ? "❌" : "✅"}
+                {nft.imgUrl === "page-not-found" ? "❌" : "✅"}
               </span>
             </a>
           );
